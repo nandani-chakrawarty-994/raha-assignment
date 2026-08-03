@@ -1,0 +1,9 @@
+import { redirect } from "next/navigation";
+import { getSessionUser } from "@/lib/auth";
+
+export default async function HomePage() {
+  const user = await getSessionUser();
+  if (!user) redirect("/login");
+  if (user.role === "branch_head") redirect("/branch-head");
+  redirect("/associate");
+}
